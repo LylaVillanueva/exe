@@ -1,3 +1,4 @@
+Audio('sounds/ikawatako.mp3').play();
 function startCakeGame() {
   const btn   = document.getElementById('start');
   const cake  = document.getElementById('cakegif');
