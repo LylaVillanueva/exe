@@ -1,30 +1,40 @@
-Audio('sounds/ikawatako.mp3').play(); 
-function startCakeGame() {
-  const btn = document.getElementById('start');
-  const cake = document.getElementById('cakegif');
-  const meter = document.getElementById('meter');
+  function startCakeGame() {
+    const btn = document.getElementById('start');
+    const cake = document.getElementById('cakegif');
+    const meter = document.getElementById('meter');
 
-  // Fallback: press Space/Enter if mic fails
-  document.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') blowCake();
-  });
+    // 🎵 Prepare audio but don't play yet
+    const song = new Audio('sounds/ikawatako.mp3');
 
-  // 🔹 define inner helper so it can be called from anywhere inside
-  function blowCake() {
-    // 1️⃣ show blown animation
-    cake.src = cake.dataset.blown;
+    // 👉 Only button click starts the “blow”
+    btn.addEventListener('click', blowCake);
 
-    // 2️⃣ after short delay, show final cake image
-    setTimeout(() => {
-      cake.src = cake.dataset.final;
-      btn.style.display = 'none'; // hide button after success
-      meter.textContent = "Yey! Click the cake to open your surprise!";
-      // 3️⃣ make final cake clickable
-      cake.style.cursor = 'pointer';
-      cake.addEventListener('click', () => {
-        window.location.href = 'envelope.html'; // 👈 your link
+    function blowCake() {
+      // Prevent multiple triggers
+      if (cake.dataset.blownDone === 'true') return;
+      cake.dataset.blownDone = 'true';
+
+      // 🎵 play song when blowing starts
+      song.currentTime = 0;
+      song.play().catch(err => {
+        console.log('Audio could not play automatically:', err);
       });
-    }, 3000);
+
+      // 1️⃣ show blown animation
+      cake.src = cake.dataset.blown;
+
+      // 2️⃣ after short delay, show final cake image
+      setTimeout(() => {
+        cake.src = cake.dataset.final;
+        btn.style.display = 'none'; // hide button after success
+        meter.textContent = "Yey! Click the cake to open your surprise!";
+        // 3️⃣ now cake is clickable to go to envelope
+        cake.style.cursor = 'pointer';
+        cake.addEventListener('click', () => {
+          window.location.href = 'envelope.html';
+        });
+      }, 3000);
+    }
   }
 
   // 🔹 main mic listener logic
@@ -67,7 +77,6 @@ function startCakeGame() {
       meter.textContent = 'Mic error — press Space to blow';
     }
   });
-}
 
 // ✅ run the whole feature once the DOM is ready
 document.addEventListener('DOMContentLoaded', startCakeGame);
