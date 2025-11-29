@@ -1,86 +1,38 @@
-  function startCakeGame() {
-    const btn = document.getElementById('start');
-    const cake = document.getElementById('cakegif');
-    const meter = document.getElementById('meter');
+function startCakeGame() {
+  const btn   = document.getElementById('start');
+  const cake  = document.getElementById('cakegif');
+  const meter = document.getElementById('meter');
 
-    // 🎵 Prepare audio but don't play yet
-    const song = new Audio('sounds/ikawatako.mp3');
+  function blowCake() {
+    // prevent double-click
+    btn.disabled = true;
 
-    // 👉 Only button click starts the “blow”
-    btn.addEventListener('click', blowCake);
+    // 1️⃣ change to blown cake GIF
+    cake.src = cake.dataset.blown;
 
-    function blowCake() {
-      // Prevent multiple triggers
-      if (cake.dataset.blownDone === 'true') return;
-      cake.dataset.blownDone = 'true';
+    // 3️⃣ after 3 seconds, show final cake & make it clickable
+    setTimeout(() => {
+      cake.src = cake.dataset.final;
+      btn.style.display = 'none'; // hide button
+      meter.textContent = "Yey! Click the cake to open your surprise!";
 
-      // 🎵 play song when blowing starts
-      song.currentTime = 0;
-      song.play().catch(err => {
-        console.log('Audio could not play automatically:', err);
-      });
-
-      // 1️⃣ show blown animation
-      cake.src = cake.dataset.blown;
-
-      // 2️⃣ after short delay, show final cake image
-      setTimeout(() => {
-        cake.src = cake.dataset.final;
-        btn.style.display = 'none'; // hide button after success
-        meter.textContent = "Yey! Click the cake to open your surprise!";
-        // 3️⃣ now cake is clickable to go to envelope
-        cake.style.cursor = 'pointer';
-        cake.addEventListener('click', () => {
+      cake.style.cursor = 'pointer';
+      cake.addEventListener(
+        'click',
+        () => {
           window.location.href = 'envelope.html';
-        });
-      }, 3000);
-    }
+        },
+        { once: true } // make sure it only runs once
+      );
+    }, 3000);
   }
 
-  // 🔹 main mic listener logic
-  btn.addEventListener('click', async () => {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AudioCtx();
-      await ctx.resume();
+  // use CLICK only (no keydown listener)
+  btn.addEventListener('click', blowCake);
+}
 
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: true, noiseSuppression: true }
-      });
-
-      const mic = ctx.createMediaStreamSource(stream);
-      const analyser = ctx.createAnalyser();
-      analyser.fftSize = 2048;
-      mic.connect(analyser);
-
-      const data = new Uint8Array(analyser.frequencyBinCount);
-      btn.textContent = 'Listening… blow toward the mic';
-
-      let blown = false;
-
-      function listen() {
-        analyser.getByteFrequencyData(data);
-        const volume = data.reduce((a, b) => a + b, 0) / data.length;
-        meter.textContent = 'volume: ' + volume.toFixed(1);
-
-        // Trigger once when loud enough
-        if (!blown && volume > 120) {
-          blown = true;
-          blowCake();
-        }
-        if (!blown) requestAnimationFrame(listen);
-      }
-
-      listen();
-    } catch (err) {
-      console.error(err);
-      meter.textContent = 'Mic error — press Space to blow';
-    }
-  });
-
-// ✅ run the whole feature once the DOM is ready
+// wait for HTML to load before running
 document.addEventListener('DOMContentLoaded', startCakeGame);
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const img = document.getElementById('imgenvelope');
