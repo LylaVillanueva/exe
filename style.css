@@ -1,0 +1,116 @@
+/* Base Styling and Typography */
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  text-align: center;
+  background-image: url("pictures/bg.jpeg"); /* 🔥 image path */
+  background-size: cover;   /* makes it fill the screen */
+  background-position: center; /* centers it */
+  color: hwb(337 41% 20%);
+  line-height: 1.6;
+}
+
+section {
+    justify-self: center;
+    background: fbf9f5;
+    border-radius: 20px;
+    margin: 30px 30px 30px 30px;
+    width: 80%;
+}
+
+#cake {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+
+}
+
+button {
+    background-color: hwb(337 41% 20%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#envelope {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio (9/16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#envelope img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+:root {
+    --card-radius: 16px;
+    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.257);
+}
+
+/* Wrapper section */
+.cards {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 per row */
+    gap: 22px;
+    /* space between cards */
+}
+
+/* Each card (as a section, per your request) */
+.card {
+    background: #fbf9f5;
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    /* keeps image corners rounded */
+    display: flex;
+    flex-direction: column;
+    transition: transform .12s ease, box-shadow .12s ease;
+    
+    /* 👇 Add these for fixed card size */
+    width: 250px;
+    /* card width */
+    height: 300px;
+    /* total card height */
+    margin: 0 auto;
+    /* centers card in grid cell */
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, .12);
+}
+
+
+
+@media (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}

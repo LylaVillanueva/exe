@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--so the website can be responsive-->
+    <title>EXE</title>
+    <link rel="icon" href="https://i.pinimg.com/736x/e9/56/67/e95667b8e81ef6d132ba1a6eeb1f1fa1.jpg">
+    <style>
+        body {
+            display: block;
+            margin: 20px;
+            padding: 20px;
+            background-color: rgb(36, 6, 6);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(255, 185, 243);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>My First Webpage</h1>
+        <!--used to navigate the website-->
+        <nav>
+            <a href="#lyla-ganda">Maganda </a>|
+            <a href="#food">Food</a>
+        </nav>
+    </header>
+    <main>
+        <hr>
+        <p><mark>This only to test</mark> the usage of tags!</p>
+        <figure id="lyla-ganda">
+            <img src="pictures/lyla.JPEG" alt="Random Image" width="200" height="auto">
+            <figcaption>Kagandahan ni Lyla.</figcaption>
+        </figure>
+        <hr>
+        <section id="food">
+            <h3>My Favorite Food</h3>
+            <ul>
+                <li>Chicken</li>
+                <li>Pizza</li>
+                <li>Chocolate</li>
+                <details>
+                    <summary>more food...</summary>
+                    <ul>
+                        <li>Exequiel Leander Javier Sarmiento</li>
+                        <li>Biceps ni Exe</li>
+                        <li>Tummy ni Exe</li>
+                        <li>Tite ni Exe</li>
+                    </ul>
+                </details>
+            </ul>
+        </section>
+        <hr>
+        <section id="froms">
+            <form>
+                <h3>Quiz</h3>
+                <label>Name:</label>
+                <input list="name">
+                <datalist id="name">
+                    <option value="Exe" />
+                    <option value="Exequiel" />
+                </datalist><br>
+
+                <p><b>MaHal m0 b@ ak0?</b></p>
+                <input type="radio" name="answer" value="yes">0o</input>
+                <input type="radio" name="answer" value="no" disabled>hindi</input><br>
+            </form>
+        </section>
+        <hr>
+        <section id=" song">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/54Sc7mZQ1RM03STpk4SfaA?utm_source=generator&theme=0" 
+                width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; 
+                encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+            </iframe>
+        </section>
+    </main>
+    <hr>
+    <footer>
+        <p>Thank you for visiting my webpage!</p>
+        <section class="navigation">
+            <a href="exe.html">
+                <img src="https://i.pinimg.com/736x/08/7e/eb/087eeb05a0e9454b3baf4b42b5dcaf1e.jpg" alt="home" width="50"
+                    height="auto">
+            </a>
+        </section>
+    </footer>
+</body>
+
+</html>
